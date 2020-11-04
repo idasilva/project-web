@@ -2,6 +2,7 @@ package page
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/idasilva/project-web/external"
 	"github.com/idasilva/project-web/validator"
 	"html/template"
@@ -28,6 +29,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	for i, d := range documents{
+		dia , mes, ano:= d.CreatedAt.Date()
+		m :=  mes.String()
+		d.Data =  fmt.Sprintf("%v-%s-%v",ano,m, dia)
+		documents[i].Data = d.Data
+	}
 	temp.ExecuteTemplate(w, "Index", documents)
 }
 func Form(w http.ResponseWriter, r *http.Request) {
@@ -51,18 +58,16 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 	c := external.NewClient()
 
-	resp, err := c.Request(external.RequestNews{})
+	resp, err := c.Request(doc)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	defer resp.Body.Close()
-
-	var documents = []external.RequestNews{}
-	err = json.NewDecoder(resp.Body).Decode(&documents)
-	if err != nil {
+	if resp.StatusCode != http.StatusOK{
 		http.Redirect(w, r, "/form/1", 301)
 		return
+
 	}
+
 	http.Redirect(w, r, "/index", 301)
 }

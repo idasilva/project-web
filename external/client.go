@@ -6,9 +6,7 @@ import (
 	"errors"
 	"fmt"
 	wrap "github.com/pkg/errors"
-	"log"
 	"net/http"
-	"os"
 )
 
 type Client struct {
@@ -25,17 +23,16 @@ func (c *Client) Request(r interface{}) (*http.Response, error) {
 
 	}
 	var UrlResult string
-	var  httStatus  string
+	var httStatus string
 
 	switch r.(type) {
 	case nil:
 
-		UrlResult = fmt.Sprintf("%s%s","http://34.86.14.11:31582",endpoint1)
-		httStatus =  http.MethodGet
+		UrlResult = fmt.Sprintf("%s%s", "http://34.86.14.11:31582", endpoint1)
+		httStatus = http.MethodGet
 	default:
-		log.Println("========:",os.Getenv("WEBSERVICE"))
-		UrlResult = fmt.Sprintf("%s%s", "http://35.186.186.127:31582",endpoint2)
-		httStatus =  http.MethodPost
+		UrlResult = fmt.Sprintf("%s%s", "http://34.86.14.11:31582", endpoint2)
+		httStatus = http.MethodPost
 
 	}
 	fmt.Println("ulr request:", UrlResult)

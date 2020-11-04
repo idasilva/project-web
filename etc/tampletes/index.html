@@ -13,7 +13,7 @@
 <body>
 
     <!-- This image always fails to load when served from go, but is fine if I just double click the html file -->
-    <img src="https://www.diariodocentrodomundo.com.br/wp-content/uploads/2019/11/captura-de-tela-2019-11-11-as-11-45-07-600x394.png" alt="Lamp" width="1400" height="400">
+    <img src="https://www.diariodocentrodomundo.com.br/wp-content/uploads/2019/11/captura-de-tela-2019-11-11-as-11-45-07-600x394.png" alt="Lamp" width="1400" height="400" style="justify-content:center">
 
     <div class="container">
         <br>
@@ -25,7 +25,7 @@
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <p>{{ .Body }}</p>
-                    <footer class="blockquote-footer">Dia <cite title="Source Title">{{ .CreatedAt }}</cite></footer>
+                    <footer class="blockquote-footer">Data <cite title="Source Title">{{ .Data }}</cite></footer>
                 </blockquote>
             </div>
         </div>
