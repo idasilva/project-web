@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const port = ":8000"
+const port = ":8080"
 
 type Sample struct {
 	*http.Server

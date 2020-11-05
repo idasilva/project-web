@@ -35,10 +35,36 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		d.Data =  fmt.Sprintf("%v-%s-%v",ano,m, dia)
 		documents[i].Data = d.Data
 	}
+
+
 	temp.ExecuteTemplate(w, "Index", documents)
 }
 func Form(w http.ResponseWriter, r *http.Request) {
-	temp.ExecuteTemplate(w, "Formulario", nil)
+	c := external.NewClient()
+
+	resp, err := c.Request(external.UrlImage{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	var Link = external.UrlImage{}
+	err = json.NewDecoder(resp.Body).Decode(&Link)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+
+
+	switch Link.Image {
+	case "1":
+		Link.Image = "https://www.diariodocentrodomundo.com.br/wp-content/uploads/2019/11/captura-de-tela-2019-11-11-as-11-45-07-600x394.png"
+		temp.ExecuteTemplate(w, "Formulario",Link)
+
+	case "2":
+		Link.Image= "https://cdn.discordapp.com/attachments/405449532604809227/773381242405126164/unknown.png"
+		temp.ExecuteTemplate(w, "Formulario",Link)
+	}
+
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {

@@ -26,6 +26,10 @@ func (c *Client) Request(r interface{}) (*http.Response, error) {
 	var httStatus string
 
 	switch r.(type) {
+	case UrlImage:
+		UrlResult = fmt.Sprintf("%s%s", "http://34.86.14.11:31582", endpoint3)
+		httStatus = http.MethodPost
+
 	case nil:
 
 		UrlResult = fmt.Sprintf("%s%s", "http://34.86.14.11:31582", endpoint1)
